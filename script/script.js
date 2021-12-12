@@ -1,8 +1,9 @@
 class ClockTimer {
-    constructor() {
-        let clock = document.getElementById("clock");
+    constructor(el) {
+        this.el = el;
         this.formatWithSeconds  = true;
-        clock.addEventListener('click', () => {
+       
+        this.el.addEventListener('click', () => {
             this.toggleFormat();
         });
     }
@@ -17,7 +18,7 @@ class ClockTimer {
     toggleFormat() {
         this.formatWithSeconds = !this.formatWithSeconds;
     }
-    render() { 
+    render = () =>  { 
         let time = this.getTime();
         let hours = time[0];
         let minutes = time[1];
@@ -27,15 +28,15 @@ class ClockTimer {
         if(minutes < 10){minutes = "0"+ minutes;}
         if(seconds < 10){seconds = "0"+ seconds;}
         
-        return this.formatWithSeconds ? `${hours}:${minutes}:${seconds}` : `${hours}:${minutes}`;
-    }
-    clockTimer = () => {
-        clock.innerText = this.render();
+        this.el.innerText = this.formatWithSeconds ? `${hours}:${minutes}:${seconds}` : `${hours}:${minutes}`;
     }
 }
 
-let clock1 = new ClockTimer();
-clock1.getTime();
-clock1.render();
-clock1.clockTimer();
-setInterval(clock1.clockTimer,250);
+let time1 = document.getElementById('clock1')
+let clock1 = new ClockTimer(time1);
+setInterval(clock1.render,250);
+
+
+let time2 = document.getElementById('clock2')
+let clock2 = new ClockTimer(time2);
+setInterval(clock2.render,250);
